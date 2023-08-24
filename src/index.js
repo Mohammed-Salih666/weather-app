@@ -1,5 +1,5 @@
 //https://api.weatherapi.com/v1/current.json?key=d699d2e252dc44d0a3a151414232308&q=london
-
+import './style.css';
 
 
 
@@ -8,7 +8,7 @@ const fetchWeather = async (location) => {
     const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=d699d2e252dc44d0a3a151414232308&q=${location}`); 
 
     weatherData = await response.json();
-
+    
     return {
         country: weatherData.location.country,
         region: weatherData.location.region,
@@ -25,5 +25,11 @@ const fetchWeather = async (location) => {
     
 }
 
-console.log(fetchWeather("Berlin"));
-
+const searchBtn = document.querySelector('#search-btn'); 
+const searchField = document.querySelector('#search')
+searchBtn.addEventListener('click', async event => {
+    event.preventDefault();
+    const location = searchField.value; 
+    const weatherData = fetchWeather(location);
+    console.log(weatherData);
+});
