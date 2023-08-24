@@ -5,5 +5,3 @@ const fetchWeather = async (location) => {
 
     return weatherInfo.json();
 }
-
-fetchWeather("Berlin").then(data => console.log(data));
