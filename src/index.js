@@ -4,6 +4,7 @@ import './style.css';
 
 
 let weatherData; 
+window.onload = getUserLocation;
 const fetchWeather = async (location) => {
     const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=d699d2e252dc44d0a3a151414232308&q=${location}`); 
 
@@ -78,4 +79,17 @@ const displayWeather = (weatherData) =>{
 
     container.insertAdjacentHTML('afterbegin', html);
     return container; 
+}
+
+
+function getUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showCurrentUserWeather);
+    }
+}
+
+
+async function showCurrentUserWeather(position) {
+    const weatherData = await fetchWeather(position.coords.latitude + "," + position.coords.longitude);
+    displayWeather(weatherData);
 }
