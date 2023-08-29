@@ -12,7 +12,7 @@ const fetchWeather = async (location) => {
     console.log(weatherData);
     return {
         country: weatherData.location.country,
-        region: weatherData.location.region,
+        region: weatherData.location.name,
         condition: weatherData.current.condition.text,
         time: weatherData.location.localtime,
         temp_c: weatherData.current.temp_c, 
