@@ -4,7 +4,7 @@ import './style.css';
 
 
 let weatherData; 
-window.onload = getUserLocation;
+window.onload = getUserLocationWeather;
 const fetchWeather = async (location) => {
     const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=d699d2e252dc44d0a3a151414232308&q=${location}`); 
 
@@ -36,20 +36,9 @@ const locationForm = document.querySelector('form');
 locationForm.addEventListener("submit", async event => {
     event.preventDefault();
     const location = locationForm.elements['search'].value; 
-    const weatherData = location === "" ? getUserLocation() : await fetchWeather(location); 
+    const weatherData = location === "" ? getUserLocationWeather() : await fetchWeather(location); 
     displayWeather(weatherData);
 }); 
-
-// const searchBtn = document.querySelector('#search-btn'); 
-// const searchField = document.querySelector('#search')
-
-// searchBtn.addEventListener('click', async event => {
-//     event.preventDefault();
-//     const location = searchField.value; 
-//     const weatherData = location === "" ? getUserLocation() : await fetchWeather(location);
-//     console.log(weatherData);
-//     displayWeather(weatherData); 
-// });
 
 const container = document.querySelector('#container'); 
 
@@ -90,7 +79,7 @@ const displayWeather = (weatherData) =>{
 }
 
 
-function getUserLocation() {
+function getUserLocationWeather() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showCurrentUserWeather);
     }
