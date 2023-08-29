@@ -30,23 +30,31 @@ const fetchWeather = async (location) => {
     
 }
 
-const searchBtn = document.querySelector('#search-btn'); 
-const searchField = document.querySelector('#search')
-searchBtn.addEventListener('click', async event => {
+
+const locationForm = document.querySelector('form'); 
+
+locationForm.addEventListener("submit", async event => {
     event.preventDefault();
-    const location = searchField.value; 
-    const weatherData = await fetchWeather(location);
-    console.log(weatherData);
-    // document.body.appendChild(displayWeather(weatherData));
-    displayWeather(weatherData); 
-});
+    const location = locationForm.elements['search'].value; 
+    const weatherData = location === "" ? getUserLocation() : await fetchWeather(location); 
+    displayWeather(weatherData);
+}); 
+
+// const searchBtn = document.querySelector('#search-btn'); 
+// const searchField = document.querySelector('#search')
+
+// searchBtn.addEventListener('click', async event => {
+//     event.preventDefault();
+//     const location = searchField.value; 
+//     const weatherData = location === "" ? getUserLocation() : await fetchWeather(location);
+//     console.log(weatherData);
+//     displayWeather(weatherData); 
+// });
 
 const container = document.querySelector('#container'); 
 
 
 const displayWeather = (weatherData) =>{
-    // const container = document.createElement('div'); 
-    // container.id = "container"; 
 
     container.innerHTML = "";
     const html = `
@@ -62,11 +70,11 @@ const displayWeather = (weatherData) =>{
 
         <div id="weather-container">
         <div>
-            <h1>${weatherData.temp_c}°C</h1>
-            <p>Feels Like: ${weatherData.feelslike_c}°C</p>
-            <p>Wind: ${weatherData.wind_direction} ${weatherData.wind_speed} km/h </p>
-            <p>Pressure: ${weatherData.pressure} MB</p>
-            <p>Humidity: ${weatherData.humidity}%</p>
+            <h1>${weatherData.temp_c} °C</h1>
+            <p><b>Feels Like:</b> ${weatherData.feelslike_c} °C</p>
+            <p><b>Wind:</b> <em>${weatherData.wind_direction}</em>  ${weatherData.wind_speed} km/h </p>
+            <p><b>Pressure:</b> ${weatherData.pressure} MB</p>
+            <p><b>Humidity:</b> ${weatherData.humidity}%</p>
         </div>
 
         <div>
